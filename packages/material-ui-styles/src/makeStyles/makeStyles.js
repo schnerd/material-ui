@@ -182,6 +182,8 @@ function useSynchronousEffect(func, values) {
   );
 }
 
+const defaultProps = {};
+
 export default function makeStyles(stylesOrCreator, options = {}) {
   const {
     // alias for classNamePrefix, if provided will listen to theme (required for theme.overrides)
@@ -201,7 +203,7 @@ export default function makeStyles(stylesOrCreator, options = {}) {
     classNamePrefix,
   };
 
-  return (props = {}) => {
+  return (props = defaultProps) => {
     const theme = useTheme() || defaultTheme;
     const stylesOptions = {
       ...React.useContext(StylesContext),
@@ -234,7 +236,7 @@ export default function makeStyles(stylesOrCreator, options = {}) {
         update(instance.current, props);
       }
       shouldUpdate.current = true;
-    });
+    }, [props]);
 
     return getClasses(instance.current, props.classes, Component);
   };
